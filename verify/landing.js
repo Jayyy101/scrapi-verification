@@ -11,16 +11,16 @@
     let scrubbed = false;
     try { window.history.replaceState(null, '', window.location.pathname); scrubbed = true; } catch { token = null; }
     for (const key of [...fragment.keys()]) fragment.delete(key);
-    let state = { title: 'Return to Scrapi', text: 'Open the verification link from your email. This page alone does not confirm your email.' };
+    let state = { title: 'Return to Spotroll', text: 'Open the verification link from your email. This page alone does not confirm your email.' };
     const show = () => {
         const title = document.getElementById('title'), status = document.getElementById('status');
         if (title && status) { title.textContent = state.title; status.textContent = state.text; }
     };
     const set = (title, text) => { state = { title, text }; show(); };
     document.addEventListener('DOMContentLoaded', show, { once: true });
-    const uncertain = () => set('Verification not confirmed here', 'We could not check your verification status. It may already be complete. Return to Scrapi and try signing in once. If sign-in says your email is unverified, stop and ask for help; do not create another account.');
+    const uncertain = () => set('Verification not confirmed here', 'We could not check your verification status. It may already be complete. Return to Spotroll and try signing in once. If sign-in says your email is unverified, stop and ask for help; do not create another account.');
     if (!scrubbed) { uncertain(); return; }
-    if (failed) { token = null; set('This link could not be verified', 'The link may be expired, already used or invalid. Return to Scrapi. If you already verified, sign in with your password. Otherwise, ask for help with verification.'); return; }
+    if (failed) { token = null; set('This link could not be verified', 'The link may be expired, already used or invalid. Return to Spotroll. If you already verified, sign in with your password. Otherwise, ask for help with verification.'); return; }
     if (!token) return;
     // Only the existing implicit signup-confirmation redirect is supported.
     // A query flag, decoded JWT or a non-signup link is never success evidence.
@@ -45,7 +45,7 @@
             if (typeof user.id !== 'string' || !user.id || typeof user.email_confirmed_at !== 'string' || !Number.isFinite(Date.parse(user.email_confirmed_at))) throw new Error();
             if (controller.signal.aborted) throw new Error();
             })()]);
-            set('Email verified', 'Your email verification is confirmed. Return to Scrapi and sign in with your password.');
+            set('Email verified', 'Your email verification is confirmed. Return to Spotroll and sign in with your password.');
         } catch { uncertain(); }
         finally { clearTimeout(timer); }
     })();
